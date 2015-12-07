@@ -1,0 +1,43 @@
+---
+# Copyright 2015, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Playbook for role testing
+  hosts: localhost
+  connection: local
+  roles:
+    - role: "{{ rolename | basename }}"
+  post_tasks:
+    - name: Open memcached file
+      slurp:
+        src: /etc/memcached.conf
+      register: memcached_file
+    - name: Read files
+      set_fact:
+        memcached_file_content: "{{ memcached_file.content | b64decode }}"
+    - name: Open memcached log file
+      stat:
+        path: /var/log/memcached.log
+      register: memcached_log
+    - name: Check memcache is running
+      shell: ps auxfww | grep 'memcache'
+    - name: Check role functions
+      assert:
+        that:
+          - "memcached_log.stat.exists"
+          - "'logfile /var/log/memcached.log' in memcached_file_content"
+          - "'-m 3758' in memcached_file_content"
+          - "'-l 127.0.0.1' in memcached_file_content"
+          - "'-c 1024' in memcached_file_content"
+          - "'-t 4' in memcached_file_content"
