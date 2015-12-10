@@ -37,7 +37,6 @@
         that:
           - "memcached_log.stat.exists"
           - "'logfile /var/log/memcached.log' in memcached_file_content"
-          - "'-m 3758' in memcached_file_content"
           - "'-l 127.0.0.1' in memcached_file_content"
           - "'-c 1024' in memcached_file_content"
           - "'-t 4' in memcached_file_content"
