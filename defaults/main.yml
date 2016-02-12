@@ -29,12 +29,8 @@ base_memcached_memory: "{{ ansible_memtotal_mb | default(4096) }}"
 memcached_memory: "{{ base_memcached_memory | int // 4 if base_memcached_memory | int // 4 < 8192 else 8192 }}"
 
 memcached_port: 11211
-memcached_user: memcache
 memcached_listen: "127.0.0.1"
 memcached_log: /var/log/memcached/memcached.log
 memcached_connections: 1024
 memcached_threads: 4
 memcached_file_limits: "{{ memcached_connections | int + 1024 }}"
-
-memcached_apt_packages:
-  - memcached

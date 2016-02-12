@@ -19,24 +19,25 @@
   roles:
     - role: "{{ rolename | basename }}"
   post_tasks:
-    - name: Open memcached file
-      slurp:
-        src: /etc/memcached.conf
-      register: memcached_file
-    - name: Read files
-      set_fact:
-        memcached_file_content: "{{ memcached_file.content | b64decode }}"
     - name: Open memcached log file
       stat:
-        path: /var/log/memcached/memcached.log
-      register: memcached_log
+        path: "{{ memcached_log }}"
+      register: memcached_log_stat
     - name: Check memcache is running
-      shell: ps auxfww | grep 'memcache'
+      command: pgrep -a memcached
+      register: memcached_proc
+    - name: Test connecting to memcache
+      shell: echo stats | nc -w5 127.0.0.1 11211
+      register: memcached_stats
     - name: Check role functions
       assert:
         that:
-          - "memcached_log.stat.exists"
-          - "'logfile /var/log/memcached/memcached.log' in memcached_file_content"
-          - "'-l 127.0.0.1' in memcached_file_content"
-          - "'-c 1024' in memcached_file_content"
-          - "'-t 4' in memcached_file_content"
+          # TODO(mattt): Uncomment these once we have figured out systemd logging
+          #- "memcached_log_stat.stat.exists"
+          #- "'logfile /var/log/memcached/memcached.log' in memcached_file_content"
+          - "'-p 11211' in memcached_proc.stdout"
+          - "'-u {{ memcached_user }}' in memcached_proc.stdout"
+          - "'-l 127.0.0.1' in memcached_proc.stdout"
+          - "'-c 1024' in memcached_proc.stdout"
+          - "'-t 4' in memcached_proc.stdout"
+          - "'STAT pid' in memcached_stats.stdout"

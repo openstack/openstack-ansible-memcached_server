@@ -16,5 +16,10 @@
 curl
 
 # Requirements for Paramiko 2.0
-libssl-dev
-libffi-dev
+libssl-dev        [platform:dpkg]
+libffi-dev        [platform:dpkg]
+libffi-devel      [platform:rpm]
+openssl-devel     [platform:rpm]
+
+# For selinux
+libselinux-python [platform:rpm]

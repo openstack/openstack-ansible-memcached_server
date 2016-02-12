@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+
+{% if debug | bool %}
+  {% set _verbosity = '-vvv' %}
+{% else %}
+  {% set _verbosity = '-vv' %}
+{% endif %}
+
+PORT="{{ memcached_port }}"
+USER="{{ memcached_user }}"
+MAXCONN="{{ memcached_connections }}"
+CACHESIZE="{{ memcached_memory }}"
+OPTIONS="-l {{ memcached_listen }} -t {{ memcached_threads }} {{ _verbosity }}"

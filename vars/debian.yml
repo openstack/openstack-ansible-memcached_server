@@ -1,5 +1,5 @@
 ---
-# Copyright 2014, Rackspace US, Inc.
+# Copyright 2016, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: install-apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
+memcached_user: memcache
 
-- include: install-yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum
+memcached_packages:
+  - memcached
+
+memcached_test_packages:
+  - netcat
+
+memcached_conf_template: memcached.conf.debian.j2
+
+memcached_conf_dest: /etc/memcached.conf

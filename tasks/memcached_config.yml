@@ -20,8 +20,8 @@
 
 - name: Apply memcached config
   template:
-    src: "memcached.conf"
-    dest: "/etc/memcached.conf"
+    src: "{{ memcached_conf_template }}"
+    dest: "{{ memcached_conf_dest }}"
     owner: "root"
     group: "root"
     mode: "0644"
@@ -31,13 +31,14 @@
 
 - name: Apply resource limits
   template:
-    src: "memcached.j2"
+    src: "memcached.debian.j2"
     dest: "/etc/default/memcached"
     owner: "root"
     group: "root"
     mode: "0644"
-  when: >
-    memcached_connections > 1024
+  when:
+    - ansible_pkg_mgr == 'apt'
+    - memcached_connections > 1024
   notify: Restart memcached
   tags:
     - memcached-config
@@ -45,15 +46,15 @@
 - name: Configure soft file limits
   lineinfile:
     dest: "/etc/security/limits.conf"
-    regexp: "^memcache.*soft.*nofile.*"
+    regexp: "^{{ memcached_user }}.*soft.*nofile.*"
     state: "present"
-    line: "memcache\tsoft\tnofile\t\t{{ memcached_file_limits }}"
+    line: "{{ memcached_user }}\tsoft\tnofile\t\t{{ memcached_file_limits }}"
     insertbefore: "^# End of file"
 
 - name: Configure hard file limits
   lineinfile:
     dest: "/etc/security/limits.conf"
-    regexp: "^memcache.*hard.*nofile.*"
+    regexp: "^{{ memcached_user }}.*hard.*nofile.*"
     state: "present"
-    line: "memcache\thard\tnofile\t\t{{ memcached_file_limits }}"
+    line: "{{ memcached_user }}\thard\tnofile\t\t{{ memcached_file_limits }}"
     insertbefore: "^# End of file"
