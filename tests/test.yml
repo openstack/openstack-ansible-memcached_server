@@ -28,7 +28,7 @@
         memcached_file_content: "{{ memcached_file.content | b64decode }}"
     - name: Open memcached log file
       stat:
-        path: /var/log/memcached.log
+        path: /var/log/memcached/memcached.log
       register: memcached_log
     - name: Check memcache is running
       shell: ps auxfww | grep 'memcache'
@@ -36,7 +36,7 @@
       assert:
         that:
           - "memcached_log.stat.exists"
-          - "'logfile /var/log/memcached.log' in memcached_file_content"
+          - "'logfile /var/log/memcached/memcached.log' in memcached_file_content"
           - "'-l 127.0.0.1' in memcached_file_content"
           - "'-c 1024' in memcached_file_content"
           - "'-t 4' in memcached_file_content"

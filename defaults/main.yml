@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+## Verbosity Options
+debug: False
+verbose: False
+
 ## APT Cache Options
 cache_timeout: 600
 
@@ -28,7 +32,7 @@ memcached_memory: "{{ base_memcached_memory | int // 4 if base_memcached_memory 
 memcached_port: 11211
 memcached_user: memcache
 memcached_listen: "127.0.0.1"
-memcached_log: /var/log/memcached.log
+memcached_log: /var/log/memcached/memcached.log
 memcached_connections: 1024
 memcached_threads: 4
 

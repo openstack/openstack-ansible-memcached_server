@@ -13,6 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+- name: Ensure logging folder exists
+  file:
+    path: "{{ memcached_log | dirname }}"
+    state: directory
+
 - name: Apply memcached config
   template:
     src: "memcached.conf"
