@@ -38,6 +38,6 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  with_items: memcached_apt_packages
+  with_items: "{{ memcached_apt_packages }}"
   tags:
     - memcached-apt-packages
