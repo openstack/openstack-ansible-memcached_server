@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## Verbosity Options
+## Logging level
 debug: False
-verbose: False
 
 ## APT Cache Options
 cache_timeout: 600
