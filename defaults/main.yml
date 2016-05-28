@@ -34,3 +34,6 @@ memcached_log: /var/log/memcached/memcached.log
 memcached_connections: 1024
 memcached_threads: 4
 memcached_file_limits: "{{ memcached_connections | int + 1024 }}"
+
+memcached_packages: []
+memcached_test_packages: []
