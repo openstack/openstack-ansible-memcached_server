@@ -37,3 +37,4 @@ memcached_file_limits: "{{ memcached_connections | int + 1024 }}"
 
 memcached_packages: []
 memcached_test_packages: []
+install_test_packages: False
