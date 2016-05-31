@@ -19,6 +19,7 @@
   until: yum_clean | success
   tags:
     - memcache-yum-packages
+    - skip_ansible_lint
 
 - name: Install yum packages
   yum:
