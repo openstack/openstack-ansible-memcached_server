@@ -18,7 +18,6 @@
   register: yum_clean
   until: yum_clean | success
   tags:
-    - memcache-yum-packages
     - skip_ansible_lint
 
 - name: Install yum packages
@@ -30,8 +29,6 @@
   retries: 5
   delay: 2
   with_items: "{{ memcached_packages }}"
-  tags:
-    - memcache-yum-packages
 
 - name: Install yum packages for testing
   yum:

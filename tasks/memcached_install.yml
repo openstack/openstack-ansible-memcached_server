@@ -16,11 +16,7 @@
 - include: install-apt.yml
   when:
     - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
 
 - include: install-yum.yml
   when:
     - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum

@@ -26,8 +26,6 @@
     group: "root"
     mode: "0644"
   notify: Restart memcached
-  tags:
-    - memcached-config
 
 - name: Apply resource limits
   template:
@@ -40,8 +38,6 @@
     - ansible_pkg_mgr == 'apt'
     - memcached_connections > 1024
   notify: Restart memcached
-  tags:
-    - memcached-config
 
 - name: Configure soft file limits
   lineinfile:
