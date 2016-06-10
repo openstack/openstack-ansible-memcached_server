@@ -1,9 +1,22 @@
-OpenStack memcached servers
-###########################
-:tags: openstack, memcached, server, cloud, ansible
-:category: \*nix
+OpenStack-Ansible Memcached Server
+##################################
 
-Role for the deployoment and installation of Memcached
+Ansible role to install and configure Memcached
+
+Default Variables
+=================
+
+.. literalinclude:: ../../defaults/main.yml
+   :language: yaml
+   :start-after: under the License.
+
+Required Variables
+==================
+
+None
+
+Example Playbook
+================
 
 .. code-block:: yaml
 
@@ -11,6 +24,4 @@ Role for the deployoment and installation of Memcached
       hosts: memcached
       user: root
       roles:
-        - { role: "memcached_server", tags: [ "memcached-server" ] }
-      vars:
-        memcached_listen: "10.0.0.1"
+        - { role: "memcached_server" }
