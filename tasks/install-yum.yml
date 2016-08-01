@@ -23,7 +23,7 @@
 - name: Install yum packages
   yum:
     pkg: "{{ item }}"
-    state: latest
+    state: "{{ memcached_package_state }}"
   register: install_yum_packages
   until: install_yum_packages | success
   retries: 5
@@ -33,7 +33,7 @@
 - name: Install yum packages for testing
   yum:
     pkg: "{{ item }}"
-    state: latest
+    state: "{{ memcached_package_state }}"
   register: install_yum_test_packages
   until: install_yum_test_packages | success
   retries: 5

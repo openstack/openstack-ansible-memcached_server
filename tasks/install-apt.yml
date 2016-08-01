@@ -29,7 +29,7 @@
 - name: Install apt packages
   apt:
     pkg: "{{ item }}"
-    state: present
+    state: "{{ memcached_package_state }}"
   register: install_packages
   until: install_packages|success
   retries: 5
@@ -39,7 +39,7 @@
 - name: Install apt packages for testing
   apt:
     pkg: "{{ item }}"
-    state: present
+    state: "{{ memcached_package_state }}"
   register: install_test_packages
   until: install_test_packages|success
   retries: 5
