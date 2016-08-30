@@ -15,10 +15,10 @@
 
 memcached_user: memcached
 
-memcached_packages:
+memcached_distro_packages:
   - memcached
 
-memcached_test_packages:
+memcached_test_distro_packages:
   - nc
 
 memcached_conf_template: memcached.redhat.j2

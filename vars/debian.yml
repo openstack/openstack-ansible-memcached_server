@@ -15,10 +15,10 @@
 
 memcached_user: memcache
 
-memcached_packages:
+memcached_distro_packages:
   - memcached
 
-memcached_test_packages:
+memcached_test_distro_packages:
   - netcat
 
 memcached_conf_template: memcached.conf.debian.j2

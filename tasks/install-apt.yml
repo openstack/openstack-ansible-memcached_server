@@ -34,7 +34,7 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  with_items: "{{ memcached_packages }}"
+  with_items: "{{ memcached_distro_packages }}"
 
 - name: Install apt packages for testing
   apt:
@@ -44,5 +44,5 @@
   until: install_test_packages|success
   retries: 5
   delay: 2
-  with_items: "{{ memcached_test_packages }}"
+  with_items: "{{ memcached_test_distro_packages }}"
   when: install_test_packages|bool
