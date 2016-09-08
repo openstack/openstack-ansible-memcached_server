@@ -17,6 +17,8 @@
   command: "/usr/bin/yum clean all"
   register: yum_clean
   until: yum_clean | success
+  retries: 5
+  delay: 2
   tags:
     - skip_ansible_lint
 
