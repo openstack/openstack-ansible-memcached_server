@@ -40,7 +40,17 @@
     mode: "0644"
   notify: Restart memcached
 
-- name: Apply resource limits
+- name: Create memcached systemd service config dir
+  file:
+    path: "/etc/systemd/system/memcached.service.d"
+    state: "directory"
+    group: "root"
+    owner: "root"
+    mode: "0755"
+  when:
+    - pid1_name == "systemd"
+
+- name: Apply resource limits (upstart)
   template:
     src: "memcached.debian.j2"
     dest: "/etc/default/memcached"
@@ -49,8 +59,23 @@
     mode: "0644"
   when:
     - ansible_pkg_mgr == 'apt'
+    - pid1_name != "systemd"
     - memcached_connections > 1024
   notify: Restart memcached
+
+- name: Apply resource limits (systemd)
+  template:
+    src: "limits.conf.j2"
+    dest: "/etc/systemd/system/memcached.service.d/limits.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  when:
+    - pid1_name == "systemd"
+    - memcached_connections > 1024
+  notify:
+    - Reload the systemd daemon
+    - Restart memcached
 
 - name: Configure soft file limits
   lineinfile:
