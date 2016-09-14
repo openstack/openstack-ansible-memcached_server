@@ -3,7 +3,7 @@
 {% if debug | bool %}
   {% set _verbosity = '-vvv' %}
 {% else %}
-  {% set _verbosity = '-vv' %}
+  {% set _verbosity = '-v' %}
 {% endif %}
 
 PORT="{{ memcached_port }}"

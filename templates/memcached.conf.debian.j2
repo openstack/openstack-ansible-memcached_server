@@ -4,7 +4,7 @@
 {% if debug | bool %}
 -vvv
 {% else %}
--vv
+-v
 {% endif %}
 logfile {{ memcached_log }}
 -m {{ memcached_memory }}
