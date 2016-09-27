@@ -17,7 +17,7 @@
   hosts: localhost
   connection: local
   roles:
-    - role: "{{ rolename | basename }}"
+    - role: "memcached_server"
   post_tasks:
     - name: Open memcached log file
       stat:
