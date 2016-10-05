@@ -41,3 +41,5 @@
           - "'-c 1024' in memcached_proc.stdout"
           - "'-t 4' in memcached_proc.stdout"
           - "'STAT pid' in memcached_stats.stdout"
+  vars_files:
+    - common/test-vars.yml
