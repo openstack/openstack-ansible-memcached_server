@@ -1,2 +1,7 @@
 [all]
 localhost ansible_connection=local ansible_become=True
+
+[all_containers]
+
+[memcached_all]
+localhost
