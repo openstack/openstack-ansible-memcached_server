@@ -48,7 +48,7 @@
     owner: "root"
     mode: "0755"
   when:
-    - pid1_name == "systemd"
+    - ansible_service_mgr == 'systemd'
 
 - name: Apply resource limits (upstart)
   template:
@@ -59,7 +59,7 @@
     mode: "0644"
   when:
     - ansible_pkg_mgr == 'apt'
-    - pid1_name != "systemd"
+    - ansible_service_mgr != 'systemd'
     - memcached_connections > 1024
   notify: Restart memcached
 
@@ -71,7 +71,7 @@
     group: "root"
     mode: "0644"
   when:
-    - pid1_name == "systemd"
+    - ansible_service_mgr == 'systemd'
     - memcached_connections > 1024
   notify:
     - Reload the systemd daemon
