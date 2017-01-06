@@ -26,10 +26,11 @@
 
 - include: memcached_install.yml
   tags:
-    - memcached-install
+    - memcached_server-install
+
 - include: memcached_config.yml
   tags:
-    - memcached-config
+    - memcached_server-config
 
 - name: Flush handlers
   meta: flush_handlers
