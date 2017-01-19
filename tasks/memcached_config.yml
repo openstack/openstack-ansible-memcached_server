@@ -61,7 +61,6 @@
     - ansible_service_mgr == 'systemd'
     - memcached_connections > 1024
   notify:
-    - Reload the systemd daemon
     - Restart memcached
 
 - name: Configure soft file limits
