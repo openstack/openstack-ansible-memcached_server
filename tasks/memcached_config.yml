@@ -40,6 +40,16 @@
     mode: "0644"
   notify: Restart memcached
 
+- name: Override systemd service file
+  copy:
+    src: "{{ memcached_systemd_service }}"
+    dest: "/etc/systemd/system/memcached.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  when: memcached_systemd_service is defined
+  notify: Restart memcached
+
 - name: Create memcached systemd service config dir
   file:
     path: "/etc/systemd/system/memcached.service.d"
