@@ -1,5 +1,5 @@
 ---
-# Copyright 2014, Rackspace US, Inc.
+# Copyright 2017, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Install distro packages
-  package:
-    name: "{{ memcached_package_list }}"
-    state: "{{ memcached_package_state }}"
-    update_cache: "{{ (ansible_pkg_mgr == 'apt') | ternary('yes', omit) }}"
-    cache_valid_time: "{{ (ansible_pkg_mgr == 'apt') | ternary(cache_timeout, omit) }}"
-  register: install_packages
-  until: install_packages | success
-  retries: 5
-  delay: 2
+#
+# Compile a list of the distro packages to install based on
+# whether the host is in the host group and the service is
+# enabled.
+#
+memcached_package_list: |-
+  {% set packages = memcached_distro_packages %}
+  {% if install_test_packages | bool %}
+  {%   set _ = packages.extend(memcached_test_distro_packages) %}
+  {% endif %}
+  {{ packages }}
