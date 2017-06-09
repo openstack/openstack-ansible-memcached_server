@@ -24,7 +24,7 @@
   tags:
     - always
 
-- include: memcached_install.yml
+- include: "memcached_install-{{ ansible_pkg_mgr }}.yml"
   tags:
     - memcached_server-install
 
