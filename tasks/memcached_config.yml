@@ -50,6 +50,17 @@
   when:
     - ansible_service_mgr == 'systemd'
 
+# See comments above 'memcached_disable_privatedevices' in defaults/main.yml for
+# links to relevant bugs and discussion.
+- name: Remove PrivateDevices systemd options when in container
+  template:
+    src: without-privatedevices.conf.j2
+    dest: "/etc/systemd/system/memcached.service.d/without-privatedevices.conf"
+  when:
+    - ansible_pkg_mgr == 'yum'
+    - ansible_service_mgr == 'systemd'
+  notify: Restart memcached
+
 - name: Apply resource limits (systemd)
   template:
     src: "limits.conf.j2"
