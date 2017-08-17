@@ -61,6 +61,14 @@
     - ansible_service_mgr == 'systemd'
   notify: Restart memcached
 
+- name: Add automatic restart on failure
+  template:
+    src: systemd-restart-on-failure.conf.j2
+    dest: "/etc/systemd/system/memcached.service.d/systemd-restart-on-failure.conf"
+  when:
+    - ansible_service_mgr == 'systemd'
+  notify: Restart memcached
+
 - name: Apply resource limits (systemd)
   template:
     src: "limits.conf.j2"
