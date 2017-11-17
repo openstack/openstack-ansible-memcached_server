@@ -27,9 +27,11 @@
       register: memcached_log_stat
     - name: Check memcache is running
       command: pgrep -a memcached
+      changed_when: false
       register: memcached_proc
     - name: Test connecting to memcache
       shell: echo stats | nc -w5 127.0.0.1 11211
+      changed_when: false
       register: memcached_stats
     - name: Check role functions
       assert:

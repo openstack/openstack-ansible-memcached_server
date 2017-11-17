@@ -23,7 +23,7 @@ cache_timeout: 600
 # Options are 'present' and 'latest'
 memcached_package_state: "latest"
 
-# MemcacheD sets 'PrivateDevices=True' for its systemd unit by default when
+# MemcacheD could set 'PrivateDevices=True' for its systemd unit by default when
 # installed into a container. This provides some additional security, but it
 # causes problems with creating mount namespaces on CentOS 7 with systemd 219.
 # While the security enhancements are helpful on bare metal hosts with
@@ -37,7 +37,7 @@ memcached_package_state: "latest"
 #
 # Setting the following variable to 'yes' will disable the PrivateDevices
 # setting in the systemd unit file for MemcacheD on CentOS 7 hosts.
-memcached_disable_privatedevices: no
+memcached_disable_privatedevices: "{{ ansible_pkg_mgr == 'yum' }}"
 
 # The default memcache memory setting is to use .25 of the available system ram
 # as long as that value is < 8192. However you can set the `memcached_memory`

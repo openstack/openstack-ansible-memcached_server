@@ -18,12 +18,11 @@
     if [ -h "{{ memcached_log | dirname }}"  ]; then
       chown -h root:root "{{ memcached_log | dirname }}"
       chown -R root:root "$(readlink {{ memcached_log | dirname }})"
-    else
       exit 1
     fi
   register: log_dir
   failed_when: false
-  changed_when: log_dir.rc != 0
+  changed_when: log_dir.rc == 1
 
 - name: Create memcached log dir
   file:
@@ -57,38 +56,17 @@
     group: "root"
     owner: "root"
     mode: "0755"
-  when:
-    - ansible_service_mgr == 'systemd'
 
-# See comments above 'memcached_disable_privatedevices' in defaults/main.yml for
-# links to relevant bugs and discussion.
-- name: Remove PrivateDevices systemd options when in container
+- name: Apply systemd options
   template:
-    src: without-privatedevices.conf.j2
-    dest: "/etc/systemd/system/memcached.service.d/without-privatedevices.conf"
-  when:
-    - ansible_pkg_mgr == 'yum'
-    - ansible_service_mgr == 'systemd'
-  notify: Restart memcached
-
-- name: Add automatic restart on failure
-  template:
-    src: systemd-restart-on-failure.conf.j2
-    dest: "/etc/systemd/system/memcached.service.d/systemd-restart-on-failure.conf"
-  when:
-    - ansible_service_mgr == 'systemd'
-  notify: Restart memcached
-
-- name: Apply resource limits (systemd)
-  template:
-    src: "limits.conf.j2"
-    dest: "/etc/systemd/system/memcached.service.d/limits.conf"
-    owner: "root"
-    group: "root"
+    src: "{{ item.src }}"
+    dest: "/etc/systemd/system/memcached.service.d/{{ item.dest }}"
     mode: "0644"
-  when:
-    - ansible_service_mgr == 'systemd'
-    - memcached_connections > 1024
+  with_items:
+    - { src: "systemd.limits.conf.j2", dest: "limits.conf" }
+    - { src: "systemd.restart.conf.j2", dest: "restart.conf" }
+    - { src: "systemd.slice.conf.j2", dest: "slice.conf" }
+    - { src: "systemd.without-privatedevices.conf.j2", dest: "without-privatedevices.conf" }
   notify:
     - Restart memcached
 
