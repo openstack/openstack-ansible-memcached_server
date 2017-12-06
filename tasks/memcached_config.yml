@@ -16,19 +16,28 @@
 - name: Test for log directory or link
   shell: |
     if [ -h "{{ memcached_log | dirname }}"  ]; then
-      chown -h root:root "{{ memcached_log | dirname }}"
-      chown -R root:root "$(readlink {{ memcached_log | dirname }})"
+      chown -c -h root:root "{{ memcached_log | dirname }}"
+      chown -c -R root:root "$(readlink {{ memcached_log | dirname }})"
+    else
       exit 1
     fi
   register: log_dir
   failed_when: false
-  changed_when: log_dir.rc == 1
+  changed_when: log_dir.rc == 1 or "changed" in log_dir.stdout
+
+- name: Show the changes if verbose
+  debug:
+    var: log_dir.stdout_lines
+    verbosity: 1
+  when: "'changed' in log_dir.stdout"
 
 - name: Create memcached log dir
   file:
     path: "{{ memcached_log | dirname }}"
     state: directory
-  when: log_dir.rc != 0
+    owner: root
+    group: root
+  when: log_dir.rc == 1
 
 - name: Apply memcached config
   template:
