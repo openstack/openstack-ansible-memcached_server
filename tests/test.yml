@@ -28,9 +28,11 @@
     - name: Check memcache is running
       command: pgrep -a memcached
       register: memcached_proc
+      tags: skip_ansible_lint
     - name: Test connecting to memcache
       shell: echo stats | nc -w5 127.0.0.1 11211
       register: memcached_stats
+      tags: skip_ansible_lint
     - name: Check role functions
       assert:
         that:
