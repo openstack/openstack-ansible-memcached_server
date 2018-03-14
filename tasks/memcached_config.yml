@@ -38,7 +38,9 @@
     owner: "root"
     group: "root"
     mode: "0644"
-  notify: Restart memcached
+  notify:
+    - Restart memcached (upstart)
+    - Restart memcached (systemd)
 
 - name: Create memcached systemd service config dir
   file:
@@ -61,7 +63,8 @@
     - ansible_pkg_mgr == 'apt'
     - ansible_service_mgr != 'systemd'
     - memcached_connections > 1024
-  notify: Restart memcached
+  notify:
+    - Restart memcached (upstart)
 
 - name: Add automatic restart on failure
   template:
@@ -69,7 +72,8 @@
     dest: "/etc/systemd/system/memcached.service.d/systemd-restart-on-failure.conf"
   when:
     - ansible_service_mgr == 'systemd'
-  notify: Restart memcached
+  notify:
+    - Restart memcached (systemd)
 
 - name: Apply resource limits (systemd)
   template:
@@ -83,7 +87,7 @@
     - memcached_connections > 1024
   notify:
     - Reload the systemd daemon
-    - Restart memcached
+    - Restart memcached (systemd)
 
 - name: Configure soft file limits
   lineinfile:

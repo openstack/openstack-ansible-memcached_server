@@ -18,8 +18,15 @@
   when:
     - ansible_service_mgr == 'systemd'
 
-- name: Restart memcached
+- name: Restart memcached (upstart)
   service:
     name: "memcached"
     state: "restarted"
     pattern: "memcached"
+  when:
+    - ansible_service_mgr != 'systemd'
+
+- name: Restart memcached (systemd)
+  command: "systemctl restart memcached"
+  when:
+    - ansible_service_mgr == 'systemd'
