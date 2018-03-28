@@ -7,6 +7,7 @@
 -v
 {% endif %}
 logfile {{ memcached_log }}
+-U 0
 -m {{ memcached_memory }}
 -p {{ memcached_port }}
 -u {{ memcached_user }}

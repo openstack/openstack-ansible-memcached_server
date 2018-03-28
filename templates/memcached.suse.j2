@@ -6,7 +6,7 @@
   {% set _verbosity = '-v' %}
 {% endif %}
 
-MEMCACHED_PARAMS="-l {{ memcached_listen }} -p {{ memcached_port }} -c {{ memcached_connections }} -t {{ memcached_threads }} {{ _verbosity }}"
+MEMCACHED_PARAMS="-U 0 -l {{ memcached_listen }} -p {{ memcached_port }} -c {{ memcached_connections }} -t {{ memcached_threads }} {{ _verbosity }}"
 
 ## Path:        Network/WWW/Memcached
 ## Description: username memcached should run as
