@@ -38,7 +38,7 @@
           - "'-p 11211' in memcached_proc.stdout"
           - "'-u {{ memcached_user }}' in memcached_proc.stdout"
           - "'-l 127.0.0.1' in memcached_proc.stdout"
-          - "'-c 1024' in memcached_proc.stdout"
+          - "'-c 4096' in memcached_proc.stdout"
           - "'-t 4' in memcached_proc.stdout"
           - "'STAT pid' in memcached_stats.stdout"
   vars_files:
