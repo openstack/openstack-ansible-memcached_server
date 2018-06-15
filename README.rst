@@ -14,7 +14,10 @@ OpenStack-Ansible Memcached server
 Ansible role to install and configure Memcached.
 
 Documentation for the project can be found at:
-  http://docs.openstack.org/developer/openstack-ansible-memcached_server/
+  https://docs.openstack.org/openstack-ansible-memcached_server/latest/
+
+Release notes for the project can be found at:
+  https://docs.openstack.org/releasenotes/openstack-ansible-memcached_server/
 
 The project home is at:
-  http://launchpad.net/openstack-ansible
+  https://launchpad.net/openstack-ansible
