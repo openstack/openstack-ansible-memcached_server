@@ -2,8 +2,8 @@
 Team and repository tags
 ========================
 
-.. image:: http://governance.openstack.org/badges/openstack-ansible-memcached_server.svg
-    :target: http://governance.openstack.org/reference/tags/index.html
+.. image:: https://governance.openstack.org/tc/badges/openstack-ansible-memcached_server.svg
+    :target: https://governance.openstack.org/tc/reference/tags/index.html
 
 .. Change things from this point on
 
@@ -18,6 +18,9 @@ Documentation for the project can be found at:
 
 Release notes for the project can be found at:
   https://docs.openstack.org/releasenotes/openstack-ansible-memcached_server/
+
+The project source code repository is located at:
+  https://git.openstack.org/cgit/openstack/openstack-ansible-memcached_server/
 
 The project home is at:
   https://launchpad.net/openstack-ansible
