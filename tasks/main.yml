@@ -24,11 +24,11 @@
   tags:
     - always
 
-- include: memcached_install.yml
+- include_tasks: memcached_install.yml
   tags:
     - memcached_server-install
 
-- include: memcached_config.yml
+- include_tasks: memcached_config.yml
   tags:
     - memcached_server-config
 
