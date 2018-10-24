@@ -17,8 +17,6 @@ memcached_user: memcached
 
 memcached_distro_packages:
   - memcached
-
-memcached_test_distro_packages:
   - netcat-openbsd
 
 memcached_conf_template: memcached.suse.j2
