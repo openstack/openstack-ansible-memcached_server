@@ -15,7 +15,7 @@
 
 - name: Install distro packages
   package:
-    name: "{{ memcached_package_list }}"
+    name: "{{ memcached_distro_packages }}"
     state: "{{ memcached_package_state }}"
     update_cache: "{{ (ansible_pkg_mgr == 'apt') | ternary('yes', omit) }}"
     cache_valid_time: "{{ (ansible_pkg_mgr == 'apt') | ternary(cache_timeout, omit) }}"
