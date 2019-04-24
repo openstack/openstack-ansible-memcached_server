@@ -20,7 +20,7 @@ Release notes for the project can be found at:
   https://docs.openstack.org/releasenotes/openstack-ansible-memcached_server/
 
 The project source code repository is located at:
-  https://git.openstack.org/cgit/openstack/openstack-ansible-memcached_server/
+  https://opendev.org/openstack/openstack-ansible-memcached_server/
 
 The project home is at:
   https://launchpad.net/openstack-ansible
