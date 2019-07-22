@@ -21,10 +21,6 @@
   roles:
     - role: "memcached_server"
   post_tasks:
-    - name: Open memcached log file
-      stat:
-        path: "{{ memcached_log }}"
-      register: memcached_log_stat
     - name: Check memcache is running
       command: pgrep -a memcached
       changed_when: false
@@ -36,9 +32,6 @@
     - name: Check role functions
       assert:
         that:
-          # TODO(mattt): Uncomment these once we have figured out systemd logging
-          #- "memcached_log_stat.stat.exists"
-          #- "'logfile /var/log/memcached/memcached.log' in memcached_file_content"
           - "'-p 11211' in memcached_proc.stdout"
           - "'-u {{ memcached_user }}' in memcached_proc.stdout"
           - "'-l 127.0.0.1' in memcached_proc.stdout"
