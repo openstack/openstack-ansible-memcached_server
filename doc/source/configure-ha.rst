@@ -39,5 +39,5 @@ to use new memcached backend:
 
 .. code-block:: shell-session
 
-  # openstack-ansible playbooks/internal_lb_vip_address
+  # openstack-ansible playbooks/haproxy-install.yml
   # openstack-ansible playbooks/setup-openstack.yml
