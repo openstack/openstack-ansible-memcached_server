@@ -63,9 +63,9 @@ target_name = 'openstack-ansible-' + role_name
 title = 'OpenStack-Ansible Release Notes: ' + role_name + 'role'
 
 # openstackdocstheme options
-repository_name = 'openstack/' + target_name
-bug_project = project.lower()
-bug_tag = ''
+openstackdocs_repo_name = 'openstack/' + target_name
+openstackdocs_bug_project = project.lower()
+openstackdocs_bug_tag = ''
 
 # Release notes do not need a version number in the title, they
 # cover multiple releases.
