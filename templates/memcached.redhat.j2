@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
 {% if debug | bool %}
-  {% set _verbosity = '-vvv' %}
+  {% set _verbosity = '-vv' %}
 {% else %}
   {% set _verbosity = '-v' %}
 {% endif %}
