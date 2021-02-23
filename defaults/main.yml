@@ -37,12 +37,12 @@ memcached_package_state: "latest"
 #
 # Setting the following variable to 'yes' will disable the PrivateDevices
 # setting in the systemd unit file for MemcacheD on CentOS 7 hosts.
-memcached_disable_privatedevices: "{{ ansible_pkg_mgr == 'yum' }}"
+memcached_disable_privatedevices: "{{ ansible_facts['pkg_mgr'] == 'yum' }}"
 
 # The default memcache memory setting is to use .25 of the available system ram
 # as long as that value is < 8192. However you can set the `memcached_memory`
 # value to whatever you like as an override.
-base_memcached_memory: "{{ ansible_memtotal_mb | default(4096) }}"
+base_memcached_memory: "{{ ansible_facts['memtotal_mb'] | default(4096) }}"
 memcached_memory: "{{ base_memcached_memory | int // 4 if base_memcached_memory | int // 4 < 8192 else 8192 }}"
 
 memcached_port: 11211
