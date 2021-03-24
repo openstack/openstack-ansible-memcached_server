@@ -19,6 +19,6 @@ memcached_distro_packages:
   - memcached
   - nc
 
-memcached_conf_template: memcached.redhat.j2
+memcached_conf_template: memcached.conf.redhat.j2
 
 memcached_conf_dest: /etc/sysconfig/memcached
