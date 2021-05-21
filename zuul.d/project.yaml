@@ -16,8 +16,8 @@
 - project:
     templates:
       - check-requirements
-      - openstack-ansible-deploy-aio_metal-jobs
-      - openstack-ansible-deploy-aio_distro_metal-jobs
-      - openstack-ansible-linters
+      - openstack-ansible-deploy-infra_lxc-jobs
+      - openstack-ansible-upgrade-infra_lxc-jobs
+      - openstack-ansible-linters-jobs
       - publish-openstack-docs-pti
       - build-release-notes-jobs-python3
