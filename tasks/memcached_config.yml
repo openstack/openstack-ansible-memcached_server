@@ -58,7 +58,7 @@
     dest: "/etc/security/limits.conf"
     regexp: "^{{ memcached_user }}.*soft.*nofile.*"
     state: "present"
-    line: "{{ memcached_user }}\tsoft\tnofile\t\t{{ memcached_file_limits }}"
+    line: "{{ memcached_user }}\tsoft\tnofile\t\t{{ memcached_file_limits }}" # noqa no-tabs
     insertbefore: "^# End of file"
 
 - name: Configure hard file limits
@@ -66,5 +66,5 @@
     dest: "/etc/security/limits.conf"
     regexp: "^{{ memcached_user }}.*hard.*nofile.*"
     state: "present"
-    line: "{{ memcached_user }}\thard\tnofile\t\t{{ memcached_file_limits }}"
+    line: "{{ memcached_user }}\thard\tnofile\t\t{{ memcached_file_limits }}" # noqa no-tabs
     insertbefore: "^# End of file"
