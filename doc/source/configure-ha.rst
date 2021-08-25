@@ -21,18 +21,20 @@ We need to define the following in your ``user_variables.yml``:
 
 .. code-block:: yaml
 
+   haproxy_memcached_allowlist_networks: "{{ haproxy_allowlist_networks }}"
    memcached_servers: "{{ internal_lb_vip_address ~ ':' ~ memcached_port }}"
    haproxy_extra_services:
-     haproxy_service_name: memcached
-     haproxy_backend_nodes: "{{ groups['memcached'] | default([]) }}"
-     haproxy_bind: "{{ [internal_lb_vip_address] }}"
-     haproxy_port: 11211
-     haproxy_balance_type: tcp
-     haproxy_balance_alg: source
-     haproxy_backend_ssl: False
-     haproxy_backend_options:
-       - tcp-check
-     haproxy_whitelist_networks: "{{ haproxy_memcached_whitelist_networks }}"
+     - service:
+         haproxy_service_name: memcached
+         haproxy_backend_nodes: "{{ groups['memcached'] | default([]) }}"
+         haproxy_bind: "{{ [internal_lb_vip_address] }}"
+         haproxy_port: 11211
+         haproxy_balance_type: tcp
+         haproxy_balance_alg: source
+         haproxy_backend_ssl: False
+         haproxy_backend_options:
+           - tcp-check
+         haproxy_allowlist_networks: "{{ haproxy_memcached_allowlist_networks }}"
 
 After setting that you need to update haproxy and all services configuration
 to use new memcached backend:
