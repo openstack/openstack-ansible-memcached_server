@@ -28,11 +28,13 @@
   tags:
     - always
 
-- include_tasks: memcached_install.yml
+- name: Importing memcached_install tasks
+  import_tasks: memcached_install.yml
   tags:
     - memcached_server-install
 
-- include_tasks: memcached_config.yml
+- name: Importing memcached_config tasks
+  import_tasks: memcached_config.yml
   tags:
     - memcached_server-config
 

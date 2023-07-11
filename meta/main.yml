@@ -17,20 +17,22 @@ galaxy_info:
   author: rcbops
   description: Installation and setup of memcached
   company: Rackspace
+  role_name: memcached_server
+  namespace: openstack
   license: Apache2
-  min_ansible_version: 2.2
+  min_ansible_version: "2.10"
   platforms:
     - name: Debian
       versions:
-        - buster
+        - bullseye
     - name: Ubuntu
       versions:
-        - bionic
         - focal
+        - jammy
     - name: EL
       versions:
-        - 8
-  categories:
+        - "9"
+  galaxy_tags:
     - cloud
     - memcached
     - development
