@@ -5,7 +5,7 @@ OpenStack-Ansible Memcached server
 .. toctree::
    :maxdepth: 2
 
-   configure-ha.rst
+   alternate-configurations.rst
 
 Ansible role to install and configure Memcached.
 
