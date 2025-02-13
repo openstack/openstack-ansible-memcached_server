@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Install distro packages
-  package:
+  ansible.builtin.package:
     name: "{{ memcached_distro_packages }}"
     state: "{{ memcached_package_state }}"
     update_cache: "{{ (ansible_facts['pkg_mgr'] == 'apt') | ternary('yes', omit) }}"

@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Apply memcached config
-  template:
+  ansible.builtin.template:
     src: "{{ memcached_conf_template }}"
     dest: "{{ memcached_conf_dest }}"
     owner: "root"
@@ -23,7 +23,7 @@
   notify: Restart memcached
 
 - name: Override systemd service file
-  copy:
+  ansible.builtin.copy:
     src: "{{ memcached_systemd_service }}"
     dest: "/etc/systemd/system/memcached.service"
     owner: "root"
@@ -33,7 +33,7 @@
   notify: Restart memcached
 
 - name: Create memcached systemd service config dir
-  file:
+  ansible.builtin.file:
     path: "/etc/systemd/system/memcached.service.d"
     state: "directory"
     group: "root"
@@ -41,7 +41,7 @@
     mode: "0755"
 
 - name: Apply systemd options
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "/etc/systemd/system/memcached.service.d/{{ item.dest }}"
     mode: "0644"
@@ -54,7 +54,7 @@
     - Restart memcached
 
 - name: Configure soft file limits
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "/etc/security/limits.conf"
     regexp: "^{{ memcached_user }}.*soft.*nofile.*"
     state: "present"
@@ -62,7 +62,7 @@
     insertbefore: "^# End of file"
 
 - name: Configure hard file limits
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "/etc/security/limits.conf"
     regexp: "^{{ memcached_user }}.*hard.*nofile.*"
     state: "present"
