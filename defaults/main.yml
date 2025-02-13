@@ -14,7 +14,7 @@
 # limitations under the License.
 
 ## Logging level
-debug: False
+debug: false
 
 ## APT Cache Options
 cache_timeout: 600
@@ -51,4 +51,4 @@ memcached_connections: 4096
 memcached_threads: 4
 memcached_file_limits: "{{ memcached_connections | int + 1024 }}"
 
-install_test_packages: False
+install_test_packages: false
