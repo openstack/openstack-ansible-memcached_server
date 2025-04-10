@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Restart memcached
-  systemd:
+  ansible.builtin.systemd:
     name: "memcached"
     state: "restarted"
     enabled: true

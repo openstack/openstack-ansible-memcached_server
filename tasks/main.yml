@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Gather variables for each operating system
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -29,14 +29,14 @@
     - always
 
 - name: Importing memcached_install tasks
-  import_tasks: memcached_install.yml
+  ansible.builtin.import_tasks: memcached_install.yml
   tags:
     - memcached_server-install
 
 - name: Importing memcached_config tasks
-  import_tasks: memcached_config.yml
+  ansible.builtin.import_tasks: memcached_config.yml
   tags:
     - memcached_server-config
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
