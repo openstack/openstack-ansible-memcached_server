@@ -17,9 +17,7 @@ memcached_user: memcache
 
 memcached_distro_packages:
   - memcached
-  - "{{ (ansible_facts['distribution_release'] == 'bookworm' or
-         ansible_facts['distribution_release'] == 'noble')
-        | ternary('netcat-openbsd', 'netcat') }}"
+  - netcat-openbsd
 
 memcached_conf_template: memcached.conf.debian.j2
 
