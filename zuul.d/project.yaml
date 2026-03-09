@@ -16,6 +16,7 @@
 - project:
     templates:
       - check-requirements
+      - openstack-ansible-molecule
       - openstack-ansible-deploy-infra_lxc-jobs
       - openstack-ansible-upgrade-infra_lxc-jobs
       - openstack-ansible-linters-jobs

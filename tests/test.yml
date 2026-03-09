@@ -14,29 +14,6 @@
 # limitations under the License.
 
 - name: Playbook for role testing
-  hosts: localhost
-  connection: local
-  user: root
-  become: true
+  hosts: memcached
   roles:
     - role: "memcached_server"
-  post_tasks:
-    - name: Check memcache is running
-      command: pgrep -a memcached
-      changed_when: false
-      register: memcached_proc
-    - name: Test connecting to memcache
-      shell: echo stats | nc -w5 127.0.0.1 11211
-      changed_when: false
-      register: memcached_stats
-    - name: Check role functions
-      assert:
-        that:
-          - "'-p 11211' in memcached_proc.stdout"
-          - "'-u {{ memcached_user }}' in memcached_proc.stdout"
-          - "'-l 127.0.0.1' in memcached_proc.stdout"
-          - "'-c 4096' in memcached_proc.stdout"
-          - "'-t 4' in memcached_proc.stdout"
-          - "'STAT pid' in memcached_stats.stdout"
-  vars_files:
-    - common/test-vars.yml
