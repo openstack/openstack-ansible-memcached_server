@@ -49,7 +49,6 @@
     - { src: "systemd.limits.conf.j2", dest: "limits.conf" }
     - { src: "systemd.restart.conf.j2", dest: "restart.conf" }
     - { src: "systemd.slice.conf.j2", dest: "slice.conf" }
-    - { src: "systemd.without-privatedevices.conf.j2", dest: "without-privatedevices.conf" }
   notify:
     - Restart memcached
 
