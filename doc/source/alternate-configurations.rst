@@ -3,7 +3,7 @@ Alternative Memcached configurations
 ====================================
 
 By default Memcached servers are deployed on each controller host as a part of
-`shared-infra_containers` group. Drivers, like `oslo_cache.memcache_pool <https://github.com/openstack/oslo.cache/blob/master/oslo_cache/backends/memcache_pool.py>`_
+``shared-infra_containers`` group. Drivers, like `oslo_cache.memcache_pool <https://opendev.org/openstack/oslo.cache/src/branch/master/oslo_cache/backends/memcache_pool.py>`_
 support marking memcache backends as dead, however not all services allow you
 to select the driver which will be used for interaction with Memcached.
 In the meanwhile, you may face services API response delays or even
@@ -15,7 +15,7 @@ backend aliveness or use always "local" to the service memcached server.
 Configuring Memcached through HAProxy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Setting haproxy in front of the Memcached servers and relying on it for
+Setting HAProxy in front of the Memcached servers and relying on it for
 checking aliveness of the backends gives more reliable failover and minimize
 delays in case of backend failure. We need to define the following in your
 ``user_variables.yml``:
@@ -36,8 +36,8 @@ delays in case of backend failure. We need to define the following in your
          - tcp-check
        haproxy_allowlist_networks: "{{ haproxy_memcached_allowlist_networks }}"
 
-After setting this you will need to update haproxy and all services
-configuration to use new memcached backend:
+After setting this you will need to update HAProxy and all services
+configuration to use new Memcached backend:
 
 .. code-block:: shell-session
 
@@ -93,4 +93,4 @@ to use new memcached backend:
 
 .. code-block:: shell-session
 
-  # openstack-ansible playbooks/setup-openstack.yml
+  # openstack-ansible openstack.osa.setup_openstack
