@@ -32,13 +32,20 @@
   when: memcached_systemd_service is defined
   notify: Restart memcached
 
-- name: Create memcached systemd service config dir
+- name: Create memcached systemd service config directory
   ansible.builtin.file:
     path: "/etc/systemd/system/memcached.service.d"
     state: "directory"
     group: "root"
     owner: "root"
     mode: "0755"
+
+# TODO(anfimovir): remove this task after 2027.1
+- name: Remove obsolete PrivateDevices override
+  ansible.builtin.file:
+    path: "/etc/systemd/system/memcached.service.d/without-privatedevices.conf"
+    state: "absent"
+  notify: Restart memcached
 
 - name: Apply systemd options
   ansible.builtin.template:
@@ -49,8 +56,7 @@
     - { src: "systemd.limits.conf.j2", dest: "limits.conf" }
     - { src: "systemd.restart.conf.j2", dest: "restart.conf" }
     - { src: "systemd.slice.conf.j2", dest: "slice.conf" }
-  notify:
-    - Restart memcached
+  notify: Restart memcached
 
 - name: Configure soft file limits
   ansible.builtin.lineinfile:
